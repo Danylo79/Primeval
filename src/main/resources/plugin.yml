@@ -1,0 +1,5 @@
+name: PrimevalItems
+version: '${project.version}'
+main: dev.dankom.pi.PrimevalItems
+api-version: 1.18
+authors: [ Dankom ]
