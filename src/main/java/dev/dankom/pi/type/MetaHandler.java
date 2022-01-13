@@ -1,4 +1,4 @@
-package dev.dankom.pi.item.type;
+package dev.dankom.pi.type;
 
 import org.bukkit.inventory.meta.ItemMeta;
 

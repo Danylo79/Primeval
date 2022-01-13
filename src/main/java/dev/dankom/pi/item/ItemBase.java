@@ -3,7 +3,9 @@ package dev.dankom.pi.item;
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.data.Rarity;
 import dev.dankom.pi.item.registry.ItemRegistry;
-import dev.dankom.pi.item.type.MetaHandler;
+import dev.dankom.pi.type.FriendlyDataContainer;
+import dev.dankom.pi.type.IItemReference;
+import dev.dankom.pi.type.MetaHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,6 +20,7 @@ public class ItemBase {
     public static final NamespacedKey ITEM_BASE_ID_KEY = createKey("itemBaseID");
     public static final NamespacedKey NAME_KEY = createKey("name");
     public static final NamespacedKey RARITY_ID_KEY = createKey("rarityID");
+    public static final NamespacedKey RECOMBOBULATED_KEY = createKey("recombobulated");
 
     private final Material material;
     private final String name;
@@ -36,11 +39,13 @@ public class ItemBase {
     }
 
     public ItemStack update(ItemStack stack) {
-        ItemMeta meta = stack.getItemMeta();
+        IItemReference<ItemBase> ir = IItemReference.createReference(stack);
+        ItemMeta meta = ir.getMeta();
         //Set Data
-        meta.getPersistentDataContainer().set(ITEM_BASE_ID_KEY, PersistentDataType.STRING, ItemRegistry.getId(this).toString());
-        meta.getPersistentDataContainer().set(NAME_KEY, PersistentDataType.STRING, name);
-        meta.getPersistentDataContainer().set(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
+        ir.getDataContainer().setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, ItemRegistry.getId(this).toString());
+        ir.getDataContainer().setNoExist(NAME_KEY, PersistentDataType.STRING, name);
+        ir.getDataContainer().setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
+        ir.getDataContainer().setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
 
         //Set Meta
         meta.setDisplayName(rarity.getColor() + name);
@@ -50,7 +55,8 @@ public class ItemBase {
         List<String> temp = new ArrayList<>();
         metaHandler.updateLore(temp);
         temp.add("   ");
-        temp.add(rarity.getColoredName());
+        boolean isRecombobulated = ir.isRecombobulated();
+        temp.add((isRecombobulated ? "&kW " : "") + rarity.getColoredName() + (isRecombobulated ? " &kW" : ""));
 
         List<String> lore = new ArrayList<>();
         for (String s : temp) {
@@ -58,8 +64,8 @@ public class ItemBase {
         }
         meta.setLore(lore);
 
-        stack.setItemMeta(meta);
-        return stack;
+        ir.setMeta(meta);
+        return ir.getStack();
     }
 
     protected static NamespacedKey createKey(String key) {

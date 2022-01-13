@@ -2,7 +2,7 @@ package dev.dankom.pi.item.registry;
 
 import dev.dankom.pi.item.ItemBase;
 import dev.dankom.pi.item.data.Rarity;
-import dev.dankom.pi.item.type.MetaHandler;
+import dev.dankom.pi.type.MetaHandler;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
