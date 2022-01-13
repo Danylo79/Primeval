@@ -6,6 +6,7 @@ import dev.dankom.pi.item.registry.ItemRegistry;
 import dev.dankom.pi.type.FriendlyDataContainer;
 import dev.dankom.pi.type.IItemReference;
 import dev.dankom.pi.type.MetaHandler;
+import dev.dankom.pi.type.attribute.Attribute;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItemBase {
@@ -21,17 +23,20 @@ public class ItemBase {
     public static final NamespacedKey NAME_KEY = createKey("name");
     public static final NamespacedKey RARITY_ID_KEY = createKey("rarityID");
     public static final NamespacedKey RECOMBOBULATED_KEY = createKey("recombobulated");
+    public static final NamespacedKey LAST_UPDATED_KEY = createKey("lastUpdated");
 
     private final Material material;
     private final String name;
     private final Rarity rarity;
-    private MetaHandler metaHandler;
+    private final MetaHandler metaHandler;
+    private final Attribute[] attributes;
 
-    public ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler) {
+    public ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute... attributes) {
         this.material = material;
         this.name = name;
         this.rarity = rarity;
         this.metaHandler = metaHandler;
+        this.attributes = attributes;
     }
 
     public ItemStack create() {
@@ -46,6 +51,7 @@ public class ItemBase {
         ir.getDataContainer().setNoExist(NAME_KEY, PersistentDataType.STRING, name);
         ir.getDataContainer().setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
         ir.getDataContainer().setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
+        ir.getDataContainer().setNoExist(LAST_UPDATED_KEY, PersistentDataType.LONG, new Date().getTime());
 
         //Set Meta
         meta.setDisplayName(rarity.getColor() + name);
