@@ -1,5 +1,6 @@
 package dev.dankom.pi;
 
+import dev.dankom.pi.command.Commands;
 import dev.dankom.pi.item.registry.ItemRegistry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ public final class PrimevalItems extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginCommand("primeval").setExecutor(new Commands());
     }
 
     @Override
