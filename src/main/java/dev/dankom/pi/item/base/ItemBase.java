@@ -68,7 +68,7 @@ public class ItemBase {
 
         for (IPerk perk : perks) {
             if (perk instanceof IAbility) {
-                temp.add("&6Item Ability: " + perk.getName() + " &e&l" + ((IAbility)perk).getAction().name());
+                temp.add("&6Item Ability: " + perk.getName() + " &e&l" + ((IAbility) perk).getAction().name());
             } else {
                 temp.add("&6Item Perk: " + perk.getName());
             }
