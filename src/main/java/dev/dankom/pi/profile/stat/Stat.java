@@ -15,15 +15,15 @@ public enum Stat {
     INTELLIGENCE("intelligence", 20);
 
     private final String loc;
-    private final float def;
+    private final Object def;
 
-    Stat(String loc, float def) {
+    <T> Stat(String loc, T def) {
         this.loc = loc;
         this.def = def;
     }
 
-    public float getDefault() {
-        return def;
+    public <T> T getDefault() {
+        return (T) def;
     }
 
     public String getLoc() {

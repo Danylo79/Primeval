@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 public class ProfileStats {
-    private Map<Stat, Float> stats = new HashMap<>();
+    private Map<Stat, Object> stats = new HashMap<>();
 
-    public void put(Stat stat, Float flt) {
+    public <T> void put(Stat stat, T flt) {
         stats.put(stat, flt);
     }
 
-    public Float get(Stat stat) {
-        return stats.get(stat);
+    public <T> T get(Stat stat) {
+        return (T) stats.get(stat);
     }
 
     public List<Stat> getAllLoadedStats() {
         List<Stat> out = new ArrayList<>();
-        for (Map.Entry<Stat, Float> stat : stats.entrySet()) {
+        for (Map.Entry<Stat, ?> stat : stats.entrySet()) {
             out.add(stat.getKey());
         }
         return out;

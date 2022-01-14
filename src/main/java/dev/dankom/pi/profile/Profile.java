@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Profile {
-    private final UUID id;
     private static Map<Profile, ProfileStats> cache = new HashMap<>();
+    private final UUID id;
 
     public Profile(String name) {
         this(Bukkit.getPlayer(name));
@@ -27,9 +27,17 @@ public class Profile {
         this.id = id;
     }
 
+    public <T> void set(Stat stat, T value) {
+        getStats().put(stat, value);
+    }
+
+    public <T> T get(Stat stat) {
+        return getStats().get(stat);
+    }
+
     public void load() {
         YmlSection section = section();
-        ProfileStats stats = cache.get(this);
+        ProfileStats stats = getStats();
         for (Stat stat : stats.getAllLoadedStats()) {
             if (section.get(stat.getLoc()) == null) {
                 section.set(stat.getLoc(), stat.getDefault());
@@ -43,10 +51,14 @@ public class Profile {
 
     public void save() {
         YmlSection section = section();
-        ProfileStats stats = cache.get(this);
+        ProfileStats stats = getStats();
         for (Stat stat : stats.getAllLoadedStats()) {
             section.set(stat.getLoc(), stats.get(stat));
         }
+    }
+
+    public ProfileStats getStats() {
+        return cache.get(this);
     }
 
     protected YmlSection section() {
