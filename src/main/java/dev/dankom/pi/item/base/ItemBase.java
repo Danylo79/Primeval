@@ -2,6 +2,7 @@ package dev.dankom.pi.item.base;
 
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.data.Rarity;
+import dev.dankom.pi.item.perk.base.IAbility;
 import dev.dankom.pi.item.perk.base.IPerk;
 import dev.dankom.pi.type.IItemReference;
 import dev.dankom.pi.type.MetaHandler;
@@ -64,6 +65,18 @@ public class ItemBase {
         //Lore
         List<String> temp = new ArrayList<>();
         metaHandler.updateLore(temp);
+
+        for (IPerk perk : perks) {
+            if (perk instanceof IAbility) {
+                temp.add("&6Item Ability: " + perk.getName() + " &e&l" + ((IAbility)perk).getAction().name());
+            } else {
+                temp.add("&6Item Perk: " + perk.getName());
+            }
+            for (String s : perk.getDescription()) {
+                temp.add(s);
+            }
+        }
+
         temp.add("   ");
         boolean isRecombobulated = ir.isRecombobulated();
         temp.add((isRecombobulated ? "&kW " : "") + rarity.getColoredName() + (isRecombobulated ? " &kW" : ""));
