@@ -1,0 +1,10 @@
+{
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:taiga": "2022-01-14 14:00:12 -0500",
+      "minecraft:forest": "2022-01-14 14:00:00 -0500"
+    },
+    "done": false
+  },
+  "DataVersion": 2865
+}

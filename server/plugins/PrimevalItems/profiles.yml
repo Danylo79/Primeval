@@ -1,0 +1,14 @@
+profiles:
+  750b412c-320a-4e9b-af82-a8aaed3de23a:
+    health:
+      health: 100.0
+      maxHealth: 100.0
+    mana:
+      maxMana: 50
+      mana: 50
+    strength: 80
+    intelligence: 20
+    defence: 10
+    crit:
+      critDamage: 25
+      critChance: 50
