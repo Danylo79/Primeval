@@ -1,7 +1,8 @@
 package dev.dankom.pi.type;
 
+import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.ItemBase;
-import dev.dankom.pi.item.registry.ItemRegistry;
+import dev.dankom.pi.item.ItemInit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,7 +49,7 @@ public interface IItemReference<B extends ItemBase> {
 
             @Override
             public B getBase() {
-                return (B) ItemRegistry.getBaseForItem(stack);
+                return (B) PrimevalItems.ITEMS.getBaseForItem(stack);
             }
         };
     }

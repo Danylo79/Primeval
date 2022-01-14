@@ -2,8 +2,6 @@ package dev.dankom.pi.item;
 
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.data.Rarity;
-import dev.dankom.pi.item.registry.ItemRegistry;
-import dev.dankom.pi.type.FriendlyDataContainer;
 import dev.dankom.pi.type.IItemReference;
 import dev.dankom.pi.type.MetaHandler;
 import dev.dankom.pi.type.attribute.Attribute;
@@ -47,7 +45,7 @@ public class ItemBase {
         IItemReference<ItemBase> ir = IItemReference.createReference(stack);
         ItemMeta meta = ir.getMeta();
         //Set Data
-        ir.getDataContainer().setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, ItemRegistry.getId(this).toString());
+        ir.getDataContainer().setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, PrimevalItems.ITEMS.getId(() -> this).toString());
         ir.getDataContainer().setNoExist(NAME_KEY, PersistentDataType.STRING, name);
         ir.getDataContainer().setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
         ir.getDataContainer().setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
