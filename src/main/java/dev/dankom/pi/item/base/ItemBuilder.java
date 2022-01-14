@@ -1,6 +1,7 @@
 package dev.dankom.pi.item.base;
 
 import dev.dankom.pi.item.data.Rarity;
+import dev.dankom.pi.item.perk.base.IPerk;
 import dev.dankom.pi.type.MetaHandler;
 import dev.dankom.pi.type.attribute.Attribute;
 import org.bukkit.Material;
@@ -15,6 +16,7 @@ public class ItemBuilder {
     private Rarity rarity = Rarity.COMMON;
     private List<String> lore = new ArrayList<>();
     private List<Attribute> attributes = new ArrayList<>();
+    private List<IPerk> perks = new ArrayList<>();
 
     public ItemBuilder setMaterial(Material material) {
         this.material = material;
@@ -41,6 +43,11 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addPerk(IPerk perk) {
+        perks.add(perk);
+        return this;
+    }
+
     public ItemBase build() {
         return new ItemBase(material, name, rarity, new MetaHandler() {
             @Override
@@ -52,6 +59,6 @@ public class ItemBuilder {
             public void updateLore(List<String> lore) {
 
             }
-        }, attributes.toArray(new Attribute[]{}));
+        }, attributes.toArray(new Attribute[]{}), perks.toArray(new IPerk[]{}));
     }
 }

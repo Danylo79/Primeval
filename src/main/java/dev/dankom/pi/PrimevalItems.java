@@ -4,6 +4,7 @@ import dev.dankom.pi.command.Commands;
 import dev.dankom.pi.event.ItemRegisterEvent;
 import dev.dankom.pi.item.ItemInit;
 import dev.dankom.pi.item.registry.parent.FullRegistry;
+import dev.dankom.pi.listener.PlayerListener;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,8 +16,10 @@ public final class PrimevalItems extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginCommand("primeval").setExecutor(new Commands());
+
+        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
         getServer().getPluginManager().callEvent(new ItemRegisterEvent(ITEMS));
     }

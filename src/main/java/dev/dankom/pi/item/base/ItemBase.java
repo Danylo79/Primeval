@@ -2,6 +2,7 @@ package dev.dankom.pi.item.base;
 
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.data.Rarity;
+import dev.dankom.pi.item.perk.base.IPerk;
 import dev.dankom.pi.type.IItemReference;
 import dev.dankom.pi.type.MetaHandler;
 import dev.dankom.pi.type.attribute.Attribute;
@@ -31,13 +32,15 @@ public class ItemBase {
     private final Rarity rarity;
     private final MetaHandler metaHandler;
     private final Attribute[] attributes;
+    private final IPerk[] perks;
 
-    ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute... attributes) {
+    ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute[] attributes, IPerk[] perks) {
         this.material = material;
         this.name = name;
         this.rarity = rarity;
         this.metaHandler = metaHandler;
         this.attributes = attributes;
+        this.perks = perks;
     }
 
     public ItemStack create() {
