@@ -1,6 +1,6 @@
 package dev.dankom.pi.item.registry.child;
 
-import dev.dankom.pi.item.ItemBase;
+import dev.dankom.pi.item.base.ItemBase;
 import org.bukkit.inventory.ItemStack;
 
 public interface Registrable<T extends ItemBase> {

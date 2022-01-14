@@ -1,7 +1,7 @@
 package dev.dankom.pi.item.registry.child;
 
 import dev.dankom.pi.event.ItemRegisterEvent;
-import dev.dankom.pi.item.ItemBase;
+import dev.dankom.pi.item.base.ItemBase;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 

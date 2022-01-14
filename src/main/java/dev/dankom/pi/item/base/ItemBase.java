@@ -1,4 +1,4 @@
-package dev.dankom.pi.item;
+package dev.dankom.pi.item.base;
 
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.data.Rarity;
@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A template for items initialized by {@link ItemBuilder}
+ */
 public class ItemBase {
     public static final NamespacedKey ITEM_BASE_ID_KEY = createKey("itemBaseID");
     public static final NamespacedKey NAME_KEY = createKey("name");
@@ -29,7 +32,7 @@ public class ItemBase {
     private final MetaHandler metaHandler;
     private final Attribute[] attributes;
 
-    public ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute... attributes) {
+    ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute... attributes) {
         this.material = material;
         this.name = name;
         this.rarity = rarity;
