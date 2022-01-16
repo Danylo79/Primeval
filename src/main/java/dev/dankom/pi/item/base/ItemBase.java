@@ -79,7 +79,7 @@ public class ItemBase {
 
         temp.add("   ");
         boolean isRecombobulated = ir.isRecombobulated();
-        temp.add((isRecombobulated ? "&kW " : "") + rarity.getColoredName() + (isRecombobulated ? " &kW" : ""));
+        temp.add((isRecombobulated ? "&kW&r " : "") + "&l" + rarity.getColoredName() + (isRecombobulated ? " &kW" : ""));
 
         List<String> lore = new ArrayList<>();
         for (String s : temp) {

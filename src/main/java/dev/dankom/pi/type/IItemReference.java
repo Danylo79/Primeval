@@ -31,7 +31,7 @@ public abstract class IItemReference<B extends ItemBase> {
     }
 
     public boolean isRecombobulated() {
-        return get(ItemBase.RECOMBOBULATED_KEY, PersistentDataType.INTEGER) == 1;
+        return getOrCreate(ItemBase.RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0) == 1;
     }
 
     public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
@@ -46,8 +46,8 @@ public abstract class IItemReference<B extends ItemBase> {
         return container().get(key, type);
     }
 
-    public <T, Z> Z getOrCreate(NamespacedKey key, PersistentDataType<T, Z> type) {
-        return container().get(key, type);
+    public <T, Z> Z getOrCreate(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
+        return container().getOrCreate(key, type, object);
     }
 
     public ItemStack getStack() {

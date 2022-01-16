@@ -29,6 +29,10 @@ public interface FriendlyDataContainer {
         return container().get(key, type);
     }
 
+    default <Z, T> Z getOrCreate(NamespacedKey key, PersistentDataType<T, Z> type, Z value) {
+        return container().getOrDefault(key, type, value);
+    }
+
     static FriendlyDataContainer create(ItemStack stack) {
         return () -> () -> stack.getItemMeta().getPersistentDataContainer();
     }
