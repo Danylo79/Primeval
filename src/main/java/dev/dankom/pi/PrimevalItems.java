@@ -7,6 +7,7 @@ import dev.dankom.pi.item.ItemInit;
 import dev.dankom.pi.item.registry.parent.FullRegistry;
 import dev.dankom.pi.listener.PlayerListener;
 import dev.dankom.pi.profile.Profile;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,21 +24,21 @@ public final class PrimevalItems extends JavaPlugin implements Listener {
     public void onEnable() {
         this.fileManager = new FileManager();
 
-        getServer().getPluginCommand("primeval").setExecutor(new Commands());
+        Bukkit.getPluginCommand("primeval").setExecutor(new Commands());
 
-        getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        Bukkit.getPluginManager().registerEvents(this, this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
-        getServer().getPluginManager().callEvent(new ItemRegisterEvent(ITEMS));
+        new ItemRegisterEvent(ITEMS).call();
 
-        for (Player p : getServer().getOnlinePlayers()) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
             new Profile(p).load();
         }
     }
 
     @Override
     public void onDisable() {
-        for (Player p : getServer().getOnlinePlayers()) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
             new Profile(p).save();
         }
     }

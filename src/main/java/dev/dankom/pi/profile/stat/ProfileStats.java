@@ -8,6 +8,12 @@ import java.util.Map;
 public class ProfileStats {
     private Map<Stat, Object> stats = new HashMap<>();
 
+    public ProfileStats() {
+        for (Stat s : Stat.values()) {
+            stats.put(s, s.getDefault());
+        }
+    }
+
     public <T> void put(Stat stat, T flt) {
         stats.put(stat, flt);
     }

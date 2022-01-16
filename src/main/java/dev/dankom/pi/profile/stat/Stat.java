@@ -1,8 +1,8 @@
 package dev.dankom.pi.profile.stat;
 
 public enum Stat {
-    HEALTH("health.health", 100),
-    MAX_HEALTH("health.maxHealth", 100),
+    HEALTH("health.health", 100D),
+    MAX_HEALTH("health.maxHealth", 100D),
 
     MANA("mana.mana", 50),
     MAX_MANA("mana.maxMana", 50),

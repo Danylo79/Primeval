@@ -52,11 +52,11 @@ public class ItemBase {
         IItemReference<ItemBase> ir = IItemReference.createReference(stack);
         ItemMeta meta = ir.getMeta();
         //Set Data
-        ir.getDataContainer().setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, PrimevalItems.ITEMS.getId(() -> this).toString());
-        ir.getDataContainer().setNoExist(NAME_KEY, PersistentDataType.STRING, name);
-        ir.getDataContainer().setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
-        ir.getDataContainer().setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
-        ir.getDataContainer().setNoExist(LAST_UPDATED_KEY, PersistentDataType.LONG, new Date().getTime());
+        ir.setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, PrimevalItems.ITEMS.getId(() -> this).toString());
+        ir.setNoExist(NAME_KEY, PersistentDataType.STRING, name);
+        ir.setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
+        ir.setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
+        ir.setNoExist(LAST_UPDATED_KEY, PersistentDataType.LONG, new Date().getTime());
 
         //Set Meta
         meta.setDisplayName(rarity.getColor() + name);

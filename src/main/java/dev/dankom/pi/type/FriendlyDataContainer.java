@@ -1,27 +1,35 @@
 package dev.dankom.pi.type;
 
+import dev.dankom.type.returner.Returner;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-public class FriendlyDataContainer {
-    private PersistentDataContainer container;
+import java.util.function.Consumer;
 
-    public FriendlyDataContainer(PersistentDataContainer container) {
-        this.container = container;
+public interface FriendlyDataContainer {
+    Returner<PersistentDataContainer> containerPromise();
+
+    default PersistentDataContainer container() {
+        return containerPromise().returned();
     }
 
-    public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
-        container.set(key, type, object);
+    default <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
+        container().set(key, type, object);
     }
 
-    public <T, Z> void setNoExist(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
-        if (container.get(key, type) == null) {
+    default <T, Z> void setNoExist(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
+        if (container().get(key, type) == null) {
             set(key, type, object);
         }
     }
 
-    public <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
-        return container.get(key, type);
+    default <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
+        return container().get(key, type);
+    }
+
+    static FriendlyDataContainer create(ItemStack stack) {
+        return () -> () -> stack.getItemMeta().getPersistentDataContainer();
     }
 }

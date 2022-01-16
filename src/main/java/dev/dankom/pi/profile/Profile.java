@@ -39,14 +39,8 @@ public class Profile {
         YmlSection section = section();
         ProfileStats stats = getStats();
         for (Stat stat : stats.getAllLoadedStats()) {
-            if (section.get(stat.getLoc()) == null) {
-                section.set(stat.getLoc(), stat.getDefault());
-            } else {
-                section.set(stat.getLoc(), stats.get(stat));
-            }
+            section.set(stat.getLoc(), stats.get(stat));
         }
-
-        save();
     }
 
     public void save() {
@@ -58,7 +52,12 @@ public class Profile {
     }
 
     public ProfileStats getStats() {
-        return cache.get(this);
+        ProfileStats stats = cache.get(this);
+        if (stats == null) {
+            cache.put(this, new ProfileStats());
+            return getStats();
+        }
+        return stats;
     }
 
     protected YmlSection section() {

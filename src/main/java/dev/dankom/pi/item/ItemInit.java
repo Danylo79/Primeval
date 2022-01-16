@@ -17,6 +17,8 @@ public class ItemInit {
             .build());
 
     public static Registrable<ItemBase> register(ItemBase base) {
-        return register(base);
+        Registrable<ItemBase> registrable = () -> base;
+        ITEMS.register(registrable);
+        return registrable;
     }
 }

@@ -7,48 +7,66 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-public interface IItemReference<B extends ItemBase> {
-    ItemStack getStack();
-    B getBase();
+public abstract class IItemReference<B extends ItemBase> {
+    private final ItemStack stack;
 
-    default ItemMeta getMeta() {
-        return getStack().getItemMeta();
+    IItemReference(ItemStack stack) {
+        this.stack = stack;
     }
 
-    default void setMeta(ItemMeta meta) {
-        getStack().setItemMeta(meta);
+    public abstract B getBase();
+
+    public abstract FriendlyDataContainer container();
+
+    public ItemMeta getMeta() {
+        return stack.getItemMeta();
     }
 
-    default FriendlyDataContainer getDataContainer() {
-        return new FriendlyDataContainer(getStack().getItemMeta().getPersistentDataContainer());
+    public void setMeta(ItemMeta meta) {
+        stack.setItemMeta(meta);
     }
 
-    default void recombobulate() {
+    public void recombobulate() {
         set(ItemBase.RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 1);
     }
 
-    default boolean isRecombobulated() {
+    public boolean isRecombobulated() {
         return get(ItemBase.RECOMBOBULATED_KEY, PersistentDataType.INTEGER) == 1;
     }
 
-    default <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
-        getDataContainer().set(key, type, object);
+    public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
+        container().set(key, type, object);
     }
 
-    default <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
-        return getDataContainer().get(key, type);
+    public <T, Z> void setNoExist(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
+        container().setNoExist(key, type, object);
     }
 
-    static <B extends ItemBase> IItemReference<B> createReference(ItemStack stack) {
-        return new IItemReference<B>() {
-            @Override
-            public ItemStack getStack() {
-                return stack;
-            }
+    public <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
+        return container().get(key, type);
+    }
+
+    public <T, Z> Z getOrCreate(NamespacedKey key, PersistentDataType<T, Z> type) {
+        return container().get(key, type);
+    }
+
+    public ItemStack getStack() {
+        return stack;
+    }
+
+    public static <B extends ItemBase> IItemReference<B> createReference(ItemStack stack) {
+        FriendlyDataContainer container = FriendlyDataContainer.create(stack);
+
+        return new IItemReference<B>(stack) {
 
             @Override
             public B getBase() {
                 return (B) PrimevalItems.ITEMS.getBaseForItem(stack);
+            }
+
+            @Override
+            public FriendlyDataContainer container() {
+                return container;
             }
         };
     }
