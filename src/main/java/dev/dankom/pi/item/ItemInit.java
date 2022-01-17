@@ -5,8 +5,8 @@ import dev.dankom.pi.item.base.ItemBuilder;
 import dev.dankom.pi.item.data.Rarity;
 import dev.dankom.pi.item.perk.base.IAbility;
 import dev.dankom.pi.item.perk.base.IPerk;
-import dev.dankom.pi.item.registry.child.Registrable;
-import dev.dankom.pi.item.registry.child.Registry;
+import dev.dankom.pi.registry.child.Registrable;
+import dev.dankom.pi.registry.child.Registry;
 import dev.dankom.util.general.DataStructureAdapter;
 import org.bukkit.Material;
 import org.bukkit.event.block.Action;
@@ -14,7 +14,7 @@ import org.bukkit.event.block.Action;
 import java.util.List;
 
 public class ItemInit {
-    public static final Registry ITEMS = new Registry();
+    public static final Registry<ItemBase> ITEMS = new Registry();
 
     public static final Registrable<ItemBase> TEST = register(new ItemBuilder()
             .setMaterial(Material.STICK)
@@ -48,7 +48,7 @@ public class ItemInit {
                 @Override
                 public List<String> getDescription() {
                     return DataStructureAdapter.arrayToList(
-                            "&7Bonk an enemy an do",
+                            "&7Bonk an enemy and do",
                             "&c9999999999 &7damage"
                     );
                 }

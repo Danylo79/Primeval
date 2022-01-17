@@ -4,7 +4,8 @@ import dev.dankom.pi.command.Commands;
 import dev.dankom.pi.event.ItemRegisterEvent;
 import dev.dankom.pi.file.FileManager;
 import dev.dankom.pi.item.ItemInit;
-import dev.dankom.pi.item.registry.parent.FullRegistry;
+import dev.dankom.pi.item.base.ItemBase;
+import dev.dankom.pi.registry.parent.MainRegistry;
 import dev.dankom.pi.listener.PlayerListener;
 import dev.dankom.pi.profile.Profile;
 import org.bukkit.Bukkit;
@@ -16,7 +17,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PrimevalItems extends JavaPlugin implements Listener {
-    public static final FullRegistry ITEMS = new FullRegistry();
+    public static final MainRegistry<ItemBase> ITEMS = new MainRegistry();
+    public static final MainRegistry<EntityBase> ENTITIES = new MainRegistry();
 
     private FileManager fileManager;
 
@@ -48,7 +50,7 @@ public final class PrimevalItems extends JavaPlugin implements Listener {
         new Profile(e.getPlayer()).save();
 
         e.getPlayer().getInventory().clear();
-        e.getPlayer().getInventory().addItem(ItemInit.TEST.create());
+        e.getPlayer().getInventory().addItem(ItemInit.TEST.get().create());
     }
 
     @EventHandler

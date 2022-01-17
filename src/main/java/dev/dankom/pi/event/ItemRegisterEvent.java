@@ -1,15 +1,15 @@
 package dev.dankom.pi.event;
 
 import dev.dankom.pi.PrimevalItems;
-import dev.dankom.pi.item.registry.parent.FullRegistry;
+import dev.dankom.pi.registry.parent.MainRegistry;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class ItemRegisterEvent extends Event {
     private static HandlerList handlers = new HandlerList();
-    private final FullRegistry itemRegistry;
+    private final MainRegistry itemRegistry;
 
-    public ItemRegisterEvent(FullRegistry itemRegistry) {
+    public ItemRegisterEvent(MainRegistry itemRegistry) {
         this.itemRegistry = itemRegistry;
     }
 
@@ -26,7 +26,7 @@ public class ItemRegisterEvent extends Event {
         return handlers;
     }
 
-    public FullRegistry getItemRegistry() {
+    public MainRegistry getItemRegistry() {
         return itemRegistry;
     }
 }
