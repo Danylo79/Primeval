@@ -14,6 +14,7 @@ public class ItemBuilder {
     private Material material = Material.BARRIER;
     private String name = "Unnamed Item";
     private Rarity rarity = Rarity.COMMON;
+
     private List<String> lore = new ArrayList<>();
     private List<Attribute> attributes = new ArrayList<>();
     private List<IPerk> perks = new ArrayList<>();
@@ -48,8 +49,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBase build() {
-        return new ItemBase(material, name, rarity, new MetaHandler() {
+    public ItemBase build(String baseId) {
+        return new ItemBase(material, baseId, name, rarity, new MetaHandler() {
             @Override
             public void updateMeta(ItemMeta meta) {
 

@@ -2,6 +2,7 @@ package dev.dankom.pi.type;
 
 import dev.dankom.pi.PrimevalItems;
 import dev.dankom.pi.item.base.ItemBase;
+import dev.dankom.pi.item.data.reforge.Reforge;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,6 +35,18 @@ public abstract class IItemReference<B extends ItemBase> {
         return getOrCreate(ItemBase.RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0) == 1;
     }
 
+    public void reforge(Reforge reforge) {
+        set(ItemBase.REFORGE_KEY, PersistentDataType.INTEGER, reforge.getID());
+    }
+
+    public Reforge getReforge() {
+        try {
+            return Reforge.get(get(ItemBase.REFORGE_KEY, PersistentDataType.INTEGER));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z object) {
         container().set(key, type, object);
     }
@@ -61,7 +74,7 @@ public abstract class IItemReference<B extends ItemBase> {
 
             @Override
             public B getBase() {
-                return (B) PrimevalItems.ITEMS.getBaseForItem(stack);
+                return (B) PrimevalItems.ITEMS.getItem(get(ItemBase.ITEM_BASE_ID_KEY, PersistentDataType.STRING));
             }
 
             @Override

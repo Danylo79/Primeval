@@ -53,11 +53,11 @@ public class ItemInit {
                     );
                 }
             })
-            .build());
+            .build("test_item"));
 
     public static Registrable<ItemBase> register(ItemBase base) {
         Registrable<ItemBase> registrable = () -> base;
-        ITEMS.register(registrable);
+        ITEMS.register(base.getID(), registrable);
         return registrable;
     }
 }

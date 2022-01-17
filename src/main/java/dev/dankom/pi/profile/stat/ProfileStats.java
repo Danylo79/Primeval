@@ -29,4 +29,8 @@ public class ProfileStats {
         }
         return out;
     }
+
+    public Map<Stat, Object> map() {
+        return stats;
+    }
 }

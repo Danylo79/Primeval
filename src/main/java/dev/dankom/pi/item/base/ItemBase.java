@@ -17,26 +17,32 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * A template for items initialized by {@link ItemBuilder}
  */
 public class ItemBase {
     public static final NamespacedKey ITEM_BASE_ID_KEY = createKey("itemBaseID");
+    public static final NamespacedKey ITEM_ID_KEY = createKey("itemBaseID");
     public static final NamespacedKey NAME_KEY = createKey("name");
     public static final NamespacedKey RARITY_ID_KEY = createKey("rarityID");
-    public static final NamespacedKey RECOMBOBULATED_KEY = createKey("recombobulated");
     public static final NamespacedKey LAST_UPDATED_KEY = createKey("lastUpdated");
 
+    public static final NamespacedKey RECOMBOBULATED_KEY = createKey("recombobulated");
+    public static final NamespacedKey REFORGE_KEY = createKey("reforge");
+
     private final Material material;
+    private final String baseId;
     private final String name;
     private final Rarity rarity;
     private final MetaHandler metaHandler;
     private final Attribute[] attributes;
     private final IPerk[] perks;
 
-    ItemBase(Material material, String name, Rarity rarity, MetaHandler metaHandler, Attribute[] attributes, IPerk[] perks) {
+    ItemBase(Material material, String baseId, String name, Rarity rarity, MetaHandler metaHandler, Attribute[] attributes, IPerk[] perks) {
         this.material = material;
+        this.baseId = baseId;
         this.name = name;
         this.rarity = rarity;
         this.metaHandler = metaHandler;
@@ -52,7 +58,8 @@ public class ItemBase {
         IItemReference<ItemBase> ir = IItemReference.createReference(stack);
         ItemMeta meta = ir.getMeta();
         //Set Data
-        ir.setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, PrimevalItems.ITEMS.getId(() -> this).toString());
+        ir.setNoExist(ITEM_BASE_ID_KEY, PersistentDataType.STRING, baseId);
+        ir.setNoExist(ITEM_ID_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
         ir.setNoExist(NAME_KEY, PersistentDataType.STRING, name);
         ir.setNoExist(RARITY_ID_KEY, PersistentDataType.INTEGER, rarity.getID());
         ir.setNoExist(RECOMBOBULATED_KEY, PersistentDataType.INTEGER, 0);
@@ -93,6 +100,18 @@ public class ItemBase {
 
         ir.setMeta(meta);
         return ir.getStack();
+    }
+
+    public String getID() {
+        return baseId;
+    }
+
+    public Attribute[] getAttributes() {
+        return attributes;
+    }
+
+    public IPerk[] getPerks() {
+        return perks;
     }
 
     protected static NamespacedKey createKey(String key) {
