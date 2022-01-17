@@ -12,7 +12,11 @@ public enum Stat {
 
     DEFENCE("defence", 10),
     STRENGTH("strength", 80),
-    INTELLIGENCE("intelligence", 20);
+    INTELLIGENCE("intelligence", 20),
+
+    SKILL_POINTS("skill_points", 5),
+    RESEARCH_POINTS("RESEARCH_points", 2),
+    ;
 
     private final String loc;
     private final Object def;
